@@ -1,0 +1,57 @@
+:root{
+    --bg: #f6fbff;
+    --bg2:#ffffff;
+    --text:#0b1220;
+    --muted:#5b6b7a;
+    --line: rgba(11,18,32,.12);
+  
+    --primary:#1aa7ff;
+    --primary2:#28d17c;
+    --soft: rgba(26,167,255,.12);
+    --soft2: rgba(40,209,124,.12);
+  
+    --shadow: 0 16px 40px rgba(13, 24, 45, .10);
+    --r16: 16px;
+    --r20: 20px;
+  }
+  
+  body{
+    margin:0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    background:
+      radial-gradient(900px 600px at 10% 0%, var(--soft), transparent 60%),
+      radial-gradient(900px 600px at 90% 10%, var(--soft2), transparent 60%),
+      var(--bg);
+    color: var(--text);
+  }
+  
+  .container{ width:min(1100px, 92vw); margin-inline:auto; }
+  .muted{ color: var(--muted); }
+  
+  .card{
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: var(--r20);
+    box-shadow: var(--shadow);
+  }
+  
+  .cardHead{
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+  }
+  
+  .cardBody{ padding: 16px; }
+  
+  .section{ padding: 24px 0; }
+  
+  .gradText{
+    background: linear-gradient(90deg, var(--primary), var(--primary2));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color: transparent;
+  }
+  
