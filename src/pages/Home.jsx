@@ -3,10 +3,15 @@ import { Link } from "react-router-dom";
 import PageHeader from "../components/PageHeader.jsx";
 import StatCard from "../components/StatCard.jsx";
 import GallerySlider from "../components/GallerySlider.jsx";
-import { desaData } from "../data/desaData.js";
+import { useDesaContext } from "../contexts/DesaContext.jsx";
+import { desaData } from "../data/desaData.js"; // fallback data
 
 export default function Home() {
-  const s = desaData.statistik;
+  const { data, loading, error } = useDesaContext();
+  
+  // Gunakan data dari API jika ada, kalau tidak pakai data statis sebagai fallback
+  const currentData = data || desaData;
+  const s = currentData.statistik;
 
   // GANTI ini dengan foto desa kamu (lokal / URL)
   const heroImages = [
@@ -15,15 +20,29 @@ export default function Home() {
     "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1600&q=60",
   ];
 
+  if (loading) {
+    return (
+      <div className="container">
+        <div style={{ textAlign: 'center', padding: '4rem' }}>
+          <p>Memuat data desa...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    console.warn('Using fallback data due to error:', error);
+  }
+
   return (
     <div className="container">
       <div className="heroBright">
         <div className="heroLeft">
           <div className="pillBright">🌿 Profil Desa • Data Ringkas</div>
           <h1 className="heroTitle">
-            Selamat Datang di <span className="gradText">{desaData.nama}</span>
+            Selamat Datang di <span className="gradText">{currentData.nama}</span>
           </h1>
-          <p className="heroDesc">{desaData.ringkas}</p>
+          <p className="heroDesc">{currentData.ringkas}</p>
 
           <div className="heroActions">
             <Link className="btnPrimary" to="/profil">Lihat Profil</Link>
