@@ -599,3 +599,7 @@ button{ font-family: inherit; }
   color: rgba(11,18,32,.85);
   background: rgba(26,167,255,.10);
 }
+
+@media (max-width: 480px){
+  .mapWrap { height: 260px; }
+}
