@@ -1,7 +1,7 @@
 import React from "react";
 import PageHeader from "../components/PageHeader.jsx";
-import MapGoogle from "../components/MapGoogle.jsx";
 import { desaData } from "../data/desaData.js";
+import MapEmbed from "../components/MapEmbed.jsx";
 
 export default function Kontak() {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
@@ -22,10 +22,9 @@ export default function Kontak() {
   const telLink = telepon ? `tel:${telepon.replace(/[^\d+]/g, "")}` : null;
   const emailLink = email ? `mailto:${email}` : null;
 
+  const gmapsQuery = "Kantor Desa Penengahan, Penengahan, Lampung Selatan";
   const gmapsLink =
-    center?.lat && center?.lng
-      ? `https://www.google.com/maps?q=${center.lat},${center.lng}`
-      : null;
+  "https://www.google.com/maps?cid=8405240928101896327";
 
   return (
     <div className="container">
@@ -96,7 +95,7 @@ export default function Kontak() {
         <div className="card">
           <div className="cardHead"><b>Peta Desa</b></div>
           <div className="cardBody">
-            <MapGoogle apiKey={apiKey} center={center} zoom={14} />
+            <MapEmbed query="Kantor Desa Penengahan, Penengahan, Lampung Selatan" />
           </div>
         </div>
       </div>
