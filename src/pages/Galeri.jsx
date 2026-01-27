@@ -1,24 +1,24 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import PageHeader from "../components/PageHeader.jsx";
 import GallerySlider from "../components/GallerySlider.jsx";
+import { desaData } from "../data/desaData.js";
 
 export default function Galeri() {
-  // GANTI ini dengan foto desa kamu:
-  // - kalau foto lokal: taruh di src/assets lalu import
-  // - atau pakai URL
-  const images = [
-    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=60",
-    "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=60",
-    "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1600&q=60",
-    "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1600&q=60",
-  ];
+  const items = useMemo(() => {
+    const g = desaData.galeri || [];
+    // support kalau galeri kamu berupa array string
+    return typeof g[0] === "string" ? g.map((src) => ({ src })) : g;
+  }, []);
+
+  const images = items.map((it) => it.src);
+  const [active, setActive] = useState(null);
 
   return (
     <div className="container">
       <PageHeader
         icon="🖼️"
         title="Galeri Desa"
-        subtitle="Slider foto desa + grid thumbnail."
+        subtitle="Dokumentasi foto desa."
       />
 
       <div className="card">
@@ -30,13 +30,35 @@ export default function Galeri() {
 
       <div className="section">
         <div className="gridGallery">
-          {images.map((src, i) => (
-            <div className="thumb" key={src + i}>
-              <img src={src} alt={`Thumbnail ${i + 1}`} loading="lazy" />
-            </div>
+          {items.map((it, i) => (
+            <button
+              className="thumb"
+              key={it.src + i}
+              type="button"
+              onClick={() => setActive(it)}
+              aria-label={`Buka foto ${i + 1}`}
+            >
+              <img src={it.src} alt={it.title || `Foto ${i + 1}`} loading="lazy" />
+              {it.title && <div className="thumbLabel">{it.title}</div>}
+            </button>
           ))}
         </div>
       </div>
+
+      {/* Lightbox */}
+      {active && (
+        <div className="lightbox" onClick={() => setActive(null)} role="presentation">
+          <div className="lightboxInner" onClick={(e) => e.stopPropagation()}>
+            <img src={active.src} alt={active.title || "Foto desa"} />
+            <div className="lightboxBar">
+              <div>{active.title ? <b>{active.title}</b> : <b>Foto Desa</b>}</div>
+              <button className="btnSoft" type="button" onClick={() => setActive(null)}>
+                Tutup
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

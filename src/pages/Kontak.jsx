@@ -6,43 +6,97 @@ import { desaData } from "../data/desaData.js";
 export default function Kontak() {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-  // GANTI koordinat ini dengan koordinat Desa Penengahan yang benar
-  const center = { lat: -5.55, lng: 105.27 };
+  // GANTI koordinat ini dengan koordinat kantor desa yang benar
+  const center = desaData.kontak?.koordinat || { lat: -5.770671399706533, lng: 105.69913794167336 };
+
+  const alamat =
+    desaData.kontak?.alamat ||
+    `${desaData.nama}, Kec. ${desaData.kecamatan}, Kab. ${desaData.kabupaten}`;
+
+  const email = desaData.kontak?.email || "kantordesapenegahan.2016@gmail.com";
+  const telepon = desaData.kontak?.telepon || "082164514893";
+  const whatsapp = desaData.kontak?.whatsapp || telepon;
+
+  const waDigits = whatsapp.replace(/[^\d]/g, "");
+  const waLink = waDigits ? `https://wa.me/${waDigits}` : null;
+  const telLink = telepon ? `tel:${telepon.replace(/[^\d+]/g, "")}` : null;
+  const emailLink = email ? `mailto:${email}` : null;
+
+  const gmapsLink =
+    center?.lat && center?.lng
+      ? `https://www.google.com/maps?q=${center.lat},${center.lng}`
+      : null;
 
   return (
     <div className="container">
       <PageHeader
         icon="📍"
         title="Kontak & Lokasi"
-        subtitle="Tambahkan info kontak resmi dan peta Google Maps."
+        subtitle="Informasi resmi dan peta interaktif kantor desa."
       />
 
       <div className="grid2">
+        {/* INFO KONTAK */}
         <div className="card">
           <div className="cardHead"><b>Info Kontak</b></div>
           <div className="cardBody">
-            <div className="kv"><span>Alamat</span><b>{desaData.nama}, Kec. {desaData.kecamatan}, Kab. {desaData.kabupaten}</b></div>
-            <div className="kv"><span>Email</span><b>kantordesapenegahan.2016@gmail.com</b></div>
-            <div className="kv"><span>Telepon</span><b>082164514893</b></div>
+            <div className="contactBox">
+              <div className="contactRow">
+                <div className="contactLabel">Alamat</div>
+                <div className="contactValue">{alamat}</div>
+              </div>
 
-            <div className="softBox">
-              <b>Aktifkan Google Maps API</b>
-              <ol className="muted" style={{ marginTop: 8, lineHeight: 1.7 }}>
-                <li>Buat file <code>.env</code> di root project</li>
-                <li>Isi: <code>VITE_GOOGLE_MAPS_API_KEY=API_KEY_KAMU</code></li>
-                <li>Restart dev server: <code>npm run dev</code></li>
-              </ol>
+              <div className="contactRow">
+                <div className="contactLabel">Email</div>
+                <div className="contactValue">{email}</div>
+              </div>
+
+              <div className="contactRow">
+                <div className="contactLabel">Telepon</div>
+                <div className="contactValue">{telepon}</div>
+              </div>
+
+              <div className="contactRow">
+                <div className="contactLabel">WhatsApp</div>
+                <div className="contactValue">{whatsapp}</div>
+              </div>
+
+              <div className="divider" />
+
+              <div className="contactActions">
+                {waLink && (
+                  <a className="btnPrimary" href={waLink} target="_blank" rel="noreferrer">
+                    Chat WhatsApp
+                  </a>
+                )}
+
+                {telLink && (
+                  <a className="btnSoft" href={telLink}>
+                    Telepon
+                  </a>
+                )}
+
+                {emailLink && (
+                  <a className="btnSoft" href={emailLink}>
+                    Kirim Email
+                  </a>
+                )}
+
+                {gmapsLink && (
+                  <a className="btnSoft" href={gmapsLink} target="_blank" rel="noreferrer">
+                    Buka di Google Maps
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
 
+        {/* MAP */}
         <div className="card">
           <div className="cardHead"><b>Peta Desa</b></div>
           <div className="cardBody">
-            <MapGoogle apiKey={apiKey} center={center} zoom={13} />
-            <p className="muted" style={{ marginTop: 10 }}>
-              Jika peta tidak muncul, pastikan API key valid dan Maps JavaScript API sudah di-enable.
-            </p>
+            <MapGoogle apiKey={apiKey} center={center} zoom={14} />
           </div>
         </div>
       </div>

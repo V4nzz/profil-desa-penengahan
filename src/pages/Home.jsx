@@ -8,11 +8,10 @@ import { desaData } from "../data/desaData.js";
 export default function Home() {
   const s = desaData.statistik;
 
-  // GANTI ini dengan foto desa kamu (lokal / URL)
   const heroImages = [
-    "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=60",
-    "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=60",
-    "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1600&q=60",
+    "/gallery/1.webp",
+    "/gallery/2.webp",
+    "/gallery/3.webp",
   ];
 
   return (
@@ -42,7 +41,6 @@ export default function Home() {
           <div className="card">
             <div className="cardHead">
               <b>Galeri Singkat</b>
-              <span className="muted">foto desa (slider)</span>
             </div>
             <div className="cardBody">
               <GallerySlider images={heroImages} intervalMs={3200} />

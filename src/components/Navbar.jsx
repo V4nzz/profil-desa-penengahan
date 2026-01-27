@@ -17,7 +17,20 @@ export default function Navbar() {
     <header className="navWrap">
       <div className="container navInner">
         <a className="brand" href="/" aria-label="Beranda">
-          <div className="brandLogo">DP</div>
+          <div className="brandLogoImgWrap">
+            <img
+              src="/Logo.webp"
+              alt="Logo Desa"
+              className="brandLogoImg"
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+                const fallback = e.currentTarget.parentElement.querySelector(".brandLogoFallback");
+                if (fallback) fallback.style.display = "grid";
+              }}
+            />
+            <div className="brandLogoFallback">DP</div>
+          </div>
+
           <div className="brandText">
             <div className="brandName">Desa Penengahan</div>
             <div className="brandSub">Profil & Informasi Publik</div>

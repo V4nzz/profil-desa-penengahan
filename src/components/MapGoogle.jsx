@@ -1,31 +1,60 @@
 import React, { useMemo } from "react";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
-export default function MapGoogle({
-  apiKey,
-  center = { lat: -5.5, lng: 105.3 }, // default (silakan ganti titik desa)
-  zoom = 12,
-}) {
-  const containerStyle = useMemo(() => ({ width: "100%", height: "360px" }), []);
+export default function MapGoogle({ apiKey, center, zoom = 13 }) {
+  const { isLoaded, loadError } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: apiKey || "",
+  });
+
+  const options = useMemo(
+    () => ({
+      mapTypeControl: false,
+      streetViewControl: false,
+      fullscreenControl: true,
+      clickableIcons: true,
+    }),
+    []
+  );
 
   if (!apiKey) {
     return (
-      <div className="card mapPlaceholder">
-        <b>Google Maps belum aktif.</b>
-        <p className="muted">
-          Tambahkan API key di file <code>.env</code> (lihat halaman Kontak).
-        </p>
+      <div className="softBox">
+        <b>API Key belum diisi</b>
+        <div className="muted" style={{ marginTop: 6, lineHeight: 1.7 }}>
+          Isi <code>VITE_GOOGLE_MAPS_API_KEY</code> di file <code>.env</code>, lalu restart <code>npm run dev</code>.
+        </div>
+      </div>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <div className="softBox">
+        <b>Gagal memuat Google Maps</b>
+        <div className="muted" style={{ marginTop: 6, lineHeight: 1.7 }}>
+          Cek API key, enable <b>Maps JavaScript API</b>, dan pastikan restriction (HTTP referrers) benar.
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="mapWrap">
-      <LoadScript googleMapsApiKey={apiKey}>
-        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={zoom}>
+    <div style={{ height: 360, borderRadius: 16, overflow: "hidden" }}>
+      {isLoaded ? (
+        <GoogleMap
+          mapContainerStyle={{ width: "100%", height: "100%" }}
+          center={center}
+          zoom={zoom}
+          options={options}
+        >
           <Marker position={center} />
         </GoogleMap>
-      </LoadScript>
+      ) : (
+        <div className="softBox" style={{ height: 360, display: "grid", placeItems: "center" }}>
+          <span className="muted">Loading peta…</span>
+        </div>
+      )}
     </div>
   );
 }

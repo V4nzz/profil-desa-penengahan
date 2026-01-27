@@ -20,12 +20,6 @@ export default function Pemerintahan() {
             <div className="kv"><span>Kepala Desa</span><b>{pem.kades}</b></div>
             <div className="kv"><span>Sekretaris Desa</span><b>{pem.sekdes}</b></div>
             <div className="kv"><span>BPD</span><b>{pem.bpd}</b></div>
-            <div className="softBox">
-              <b>Catatan</b>
-              <p className="muted">
-                Nanti bisa ditambah bagan organisasi lengkap (KAUR/KASI/Kadus) versi visual.
-              </p>
-            </div>
           </div>
         </div>
 

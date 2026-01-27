@@ -28,8 +28,8 @@ export const desaData = {
       { dusun: "Dusun II", jiwa: 357 },
       { dusun: "Dusun III", jiwa: 356 },
       { dusun: "Dusun IV", jiwa: 356 },
-      { dusun: "Dusun V (Gunung Botol)", jiwa: 357 },
-      { dusun: "Dusun VI (PKS)", jiwa: 357 },
+      { dusun: "Dusun V", jiwa: 357 },
+      { dusun: "Dusun VI", jiwa: 357 },
     ],
     lahan: [
       { nama: "Pemukiman", luas: "148 Ha" },
@@ -90,5 +90,39 @@ export const desaData = {
         { nama: "Dusun VI (PKS)", rt: 3 },
       ],
     },
+    sejarah: [
+      {
+        tahun: "Masa Kolonial",
+        judul: "Asal-usul Desa Penengahan",
+        deskripsi:
+          "Desa Penengahan telah ada sejak masa kolonial Belanda. Nama berasal dari kata 'Panengahan' yang berarti persinggahan atau penengah karena tokoh desa berperan sebagai penengah konflik masyarakat sekitar.",
+      },
+      {
+        tahun: "1954–1964",
+        judul: "Kepala Desa Pertama",
+        deskripsi: "Karya Kasim menjabat sebagai Kepala Desa pertama Desa Penengahan.",
+      },
+      {
+        tahun: "1998–2012",
+        judul: "Periode Kepemimpinan Khozali",
+        deskripsi:
+          "Khozali memimpin Desa Penengahan selama dua periode dan memperkuat struktur pemerintahan desa.",
+      },
+      {
+        tahun: "2019–Sekarang",
+        judul: "Kepala Desa Aktif",
+        deskripsi: "Shofiuddin menjabat sebagai Kepala Desa dan memimpin pengembangan administrasi serta pelayanan desa.",
+      },
+    ],
+    galeri: [
+      { src: "/gallery/1.webp" },
+      { src: "/gallery/2.webp" },
+      { src: "/gallery/3.webp" },
+      { src: "/gallery/4.webp" },
+      { src: "/gallery/5.webp" },
+      { src: "/gallery/6.webp" },
+      { src: "/gallery/7.webp" },
+      { src: "/gallery/8.webp" },
+      { src: "/gallery/9.webp" },
+    ],
   };
-  
