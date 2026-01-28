@@ -14,7 +14,7 @@ export default function Kontak() {
     `${desaData.nama}, Kec. ${desaData.kecamatan}, Kab. ${desaData.kabupaten}`;
 
   const email = desaData.kontak?.email || "kantordesapenegahan.2016@gmail.com";
-  const telepon = desaData.kontak?.telepon || "082164514893";
+  const telepon = desaData.kontak?.telepon || "+6282164514893";
   const whatsapp = desaData.kontak?.whatsapp || telepon;
 
   const waDigits = whatsapp.replace(/[^\d]/g, "");
